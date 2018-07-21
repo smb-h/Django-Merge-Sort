@@ -1,0 +1,78 @@
+Header {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.breadcrumb-item {
+    margin-left: 40px;
+}
+
+/* Change color slowly on hover */
+
+a {
+    color: #028090 !important;
+    text-decoration: none !important;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -ms-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    transition: color 0.5s;
+}
+
+a:hover {
+    color: #F45B69 !important;
+}
+
+body {
+    background-color: #456990 !important;
+}
+
+footer > div{
+    color: rgb(105, 105, 105);
+}
+
+#TraceScroll {
+    /* position: relative; */
+    padding: 30px;
+}
+
+#Result {
+    margin-top: 0px;
+}
+
+#ModalContent {
+    color: black;
+    width: 1500px; 
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding: 20px;
+    font-family:Karim; 
+    font-size: 24px;
+}
+
+.modal-header > h2 {
+    color: black;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+
+@font-face {
+    font-family: 'Bardiya';
+    src: url('B_Bardiya.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Morvarid';
+    src: url('BMorvarid.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Karim';
+    src: url('B Karim.ttf') format('truetype');
+}

@@ -1,0 +1,198 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<div id="Content">
+
+
+    <div class="row col col-lg-12 col-md-12 col-sm-12">
+
+        <div class="col col-lg-5 col-md-5 col-sm-12">
+
+            <!-- Trace ScrollBar -->
+            <div class="col">
+                <!-- Trace -->
+                <div class="content light" id="TraceScroll">
+
+                    <p>
+                        <b>void</b> MSort (
+                        <b>int</b> n,
+                        <b>keytype</b> S[&nbsp;])
+                        <br/> {
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>const int</b> h = [n/2], m = n - h;
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>keytype</b> U[1..h], V[1..m];
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;if (n > 1) {
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copy S[1] through S[h] to U[1] through U[h];
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copy S[h + 1] through S[n] to V[1] through V[m];
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;MSort(h, U);
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;MSort(m, V);
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;Merge(h, m, U, V, S);
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;}
+                        <br/> }
+
+                        <b>void</b> merge (
+                        <b>int</b> h,
+                        <b>int</b> m,
+                        <b>const keytype</b> U[ ],
+                        <br/>
+                        <b>const keytype</b> V[ ],
+                        <b>const keytype</b> S[ ])
+                        <br/> {
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index i, j, k;
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i = 1; j = 1; k = 1;
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (i
+                        <=h &amp;&amp; j <=m ) {<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (U[i]
+                        < V[j]) {<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S[k]
+                        = U[i];
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i++;
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else {
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S[k]
+                        = V[j];
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;j++;
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k++;
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;} // end of while
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;if (i > h)
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copy V[j] through V[m] to S[k] through S[h + m];
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;else
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copy U[i] through U[h] to S[k] through S[h + m];
+                        <br/> }
+                        <br/>
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Result -->
+            <div class="col" id="Result">
+                <form class="form-group jumbotron" method="GET" action="">
+                    {% block OutputForm %} {% csrf_token %} {% for field in form %} {{ field.errors }}
+                    <label>{{ field.label }}</label>
+                    <!-- <input class="form-control" name="{{ field.name }}" placeholder="{{ field.label }}" />  -->
+                    <textarea class="form-control" name="{{ field.name }}" readonly>{{ data }}</textarea> {% endfor %}
+                    <br/>
+                    <a class="btn btn-warning" href="{% url 'Index' %}">Again?</a>
+                    <!-- Button trigger modal -->
+                    <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#centralModalSuccess">About Merge Sort
+                        <i class="fa fa-eye ml-1"></i>
+                    </a>
+
+                    <!-- Modal -->
+
+                    <!-- Central Modal Medium Success -->
+                    <div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-notify modal-success" role="document">
+                            <!--Content-->
+                            <div class="modal-content" id="ModalContent">
+                                <!--Header-->
+                                <div class="modal-header">
+                                    <h2 class="heading lead" style="color: cadetblue;">مرتب‌سازی ادغامی</h2>
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" class="white-text">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!--Body-->
+                                <div class="modal-body">
+                                    <div style="text-align: right; direction:rtl;">
+                                        <i class="fa fa-check fa-4x mb-3 animated rotateIn"></i>
+                                        <p>
+                                            مرتب‌سازی ادغامی یک الگوریتم مرتب‌سازی تطبیقی با زمان اجرای n log ⁡ n می‌باشد. در اکثر پیاده‌سازی‌ها این الگوریتم پایدار
+                                            می‌باشد. بدین معنی که این الگوریتم ترتیب ورودی‌های مساوی را در خروجی مرتب شده
+                                            حفظ می‌کند. این یک مثال از الگوریتم تقسیم و تسخیر می‌باشد. این الگوریتم در سال
+                                            ۱۹۴۵ توسط جان فون نویمان اختراع شده‌است.
+                                        </p>
+                                        <br/>
+                                        <p>
+                                            از نظر مفهومی یک الگوریتم مرتب‌سازی ادغام بدین صورت کار می‌کند:
+                                            <ul>
+                                                <li>اگر طول لیست ۰ یا ۱ باشد آن پیش از این مرتب شده‌است در غیر این صورت
+                                                </li>
+                                                <li>لیست نامرتب را به دو زیرلیست که اندازهٔ آن‌ها در حدود نصف سایز لیست اولیه‌است
+                                                    تقسیم می‌کند.
+                                                </li>
+                                                <li>هر زیرلیست را به‌طور بازگشتی با صدا کردن merge sort مرتب می‌کند.
+                                                </li>
+                                                <li>دو تا دوتا زیر لیست‌ها را از آخر ادغام می‌کند تا به یک لیست برسد.
+                                                </li>
+                                            </ul>
+                                            <br/> مرتب‌سازی ادغام ۲ تا ایدهٔ اصلی را با هم ترکیب می‌کند تا زمان اجرایش تقویت شود.
+                                            <ul>
+                                                <li>یک لیست کوچک از گام‌های کم‌تری برای مرتب‌کردن نسبت به یک لیست بزرگ استفاده
+                                                    می‌کند.
+                                                </li>
+                                                <li>یرای مرتب کردن دو لیست مرتب‌شده نسبت به دو لیست نامرتب گام‌های کمتری نیاز
+                                                    می‌باشد به عنوان مثال اگر این لیست‌ها مرتب باشند شما مجبور هستید تا هر
+                                                    لیست را فقط یکبار پیمایش کنید.
+                                                </li>
+                                            </ul>
+                                            این الگوریتم بازگشتی ست
+
+                                        </p>
+                                        <p>
+                                            <figure>
+                                                <center>
+                                                    <img src="{% static 'img/Merge-sort-example-300px.gif' %}">
+                                                </center>
+                                                <figcaption></figcaption>
+                                            </figure>
+                                        </p>
+                                        <p>
+                                            ابتدا روند الگوریتم راروی توسط یک نمونه نشان می‌دهیم آرایه‌ی ۵،۲،۴،۷،۱،۳،۲،۶ را در نظر بگیرید ابتدا این آرایه را نصف می‌کنیم
+                                            پس دو آرایه به طول ۴ به‌دست می‌آید، که برابر است با (۵،۲،۴،۷) و(۱،۳،۲،۶) سپس
+                                            این روال را تا جایی ادامه می‌دهیم که که طول آرایه‌هایمان برابر یک شود؛ که برابر
+                                            است با: (۶)(۲)(۳)(۱)(۷)(۴)(۲)(۵) حال به صورت بالا آن‌ها را با هم ادغام می‌کنیم
+                                            تا به آرایه اصلی‌مان برسیم.
+                                        </p>
+                                        <br/>
+                                        <p>
+                                            <span style="color: cadetblue;">پیچیدگی‌ الگوریتم</span>
+                                            <br/> در مرتب کردن n تا عنصر مرتب‌سازی ادغام در حالت میانگین و بدترین حالت دارای زمان
+                                            اجرای θ(nlogn) می‌باشد. اگر زمان اجرای مرتب‌سازی ادغام برای یک لیست به طول T(n),n
+                                            باشد بنابراین رابطه‌ی بازگشتی T(n) = 2T(n/2) + n از تعریف الگوریتم پیروی می‌کند.
+                                            در این الگوریتم هر دفعه لیست را به دو زیرلیست تقسیم می‌کنیم و در هر مرحله n تا
+                                            گام برای ادغام کردن لازم می‌باشد.
+                                        </p>
+
+                                    </div>
+                                </div>
+
+                                <!--Footer-->
+                                <div class="modal-footer justify-content-center">
+
+                                </div>
+                            </div>
+                            <!--/.Content-->
+                        </div>
+                    </div>
+                    <!-- Central Modal Medium Success-->
+
+
+
+                    {% endblock OutputForm %} </form>
+            </div>
+        </div>
+
+
+        <!-- Graphical -->
+        <div class="col col-lg-7 col-md-7 col-sm-12" id="Graphical">
+
+            <div>
+
+                <div class="chart" style="margin:20px; margin-top: 50px;">
+                    <div id="NTree"></div>
+                    <!-- <div id="STree" style="top: -110px;"></div> -->
+                    <div id="STree" id="MG" style="top: -20px;"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <hr/>
+</div>
+
+{% endblock content %}

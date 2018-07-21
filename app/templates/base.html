@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %} {% block meta %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> {% endblock meta %}
+    <title>
+        {% block title %} Project {% endblock title %}
+    </title>
+    {% block style %}
+    <!-- Complete CSS Bootstrap -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous"> -->
+    <link href="{% static 'Packages/MDB/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Customize -->
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'style/main.css' %}" />
+
+
+    <!-- Tree -->
+    <link rel="stylesheet" href="{% static 'style/Treant.css' %}" />
+    <link rel="stylesheet" href="{% static 'style/TreeCustomize.css' %}" />
+    <link rel="stylesheet" href="{% static 'style/perfect-scrollbar.css' %}" />
+    <!-- JQuery ScrollBar -->
+    <link rel="stylesheet" href="{% static 'Packages/malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'Packages/malihu-custom-scrollbar-plugin-master/ExampleStyle.css' %}" />
+    {% endblock style %} {% block script %}
+
+    <!-- Complete JS Bootstrap -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous" defer></script> -->
+    <script src="{% static 'Packages/MDB/js/bootstrap.min.js' %}" defer></script>
+
+    <!-- JQuery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="{% static 'Packages/jquery-3.3.1.min.js' %}"></script>
+    
+
+    <!-- Customize -->
+    <script src="{% static 'script/main.js' %}"></script>
+
+    <!-- Tree -->
+    <!-- <script src="{% static 'script/detail.js' %}"></script> -->
+    <script src="{% static 'script/Generator.js' %}"></script>
+
+    <script src="{% static 'script/raphael.js' %}"></script>
+    <script src="{% static 'script/Treant.js' %}"></script>
+    <script src="{% static 'script/jquery.mousewheel.js' %}"></script>
+    <script src="{% static 'script/perfect-scrollbar.js' %}"></script>
+
+    <script src="{% static 'script/jquery.easing.js' %}"></script>
+
+    <!-- JQuery ScrollBar -->
+    <script src="{% static 'Packages/malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+
+    {% endblock script %}
+
+
+
+
+
+</head>
+
+<body class="col">
+    {% block header %}
+    <br/>
+    <!-- NavBar -->
+    <header>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="http://www.SmbHosseini.ir">Seyed Mohammad Bagher Hosseini</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="http://www.IRIDevelopers.com">Matin Piraste</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Project - Merge Sort</li>
+                <li class="breadcrumb-item">
+                    <a href="#">Professor Sarshar</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/API/">API</a>
+                </li>
+            </ol>
+        </nav>
+    </header>
+
+    {% endblock header %} {% block content %} {% endblock content %}
+</body>
+
+</html>

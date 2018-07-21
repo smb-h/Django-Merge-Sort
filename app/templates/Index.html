@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block content %}
+<div id="Content">
+
+    <!-- Input Form -->
+    <div class="container">
+        <form class="form-group jumbotron" method="POST" action="">
+            {% block InputForm %} {% csrf_token %} {% for field in form %} {{ field.errors }}
+            <label>Enter Array :</label>
+            <input class="form-control" name="{{ field.name }}" placeholder="313,45,76,95,21, ..." />
+            <!-- {{ InForm.as_p }} -->
+            {% endfor %} {% endblock InputForm %}
+            <br/>
+            <button class="btn btn-success" id="sub">Submit</button>
+        </form>
+    </div>
+
+
+
+    <!-- Trace -->
+    <footer class="jumbotron">
+        <div>
+            <center>Developed By
+                <a href="http://www.SmbHosseini.ir">SMBH</a>
+            </center>
+            <center>Powerd by
+                <a href="https://www.python.org/">Python</a>
+                <a href="https://www.djangoproject.com/">Django</a> ,
+                <a href="www.django-rest-framework.org">REST framework</a>
+            </center>
+        </div>
+    </footer>
+
+
+
+    <hr/>
+</div>
+
+
+
+
+
+
+
+</div>
+{% endblock content %}
