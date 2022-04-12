@@ -9,35 +9,24 @@ DicList = []
 def TreeReader():
     assert (os.path.exists('RestJs.json'))
 
-    RestJs = open('RestJs.json', 'r')
+    with open('RestJs.json', 'r') as RestJs:
+        with open('TreeJs.json', 'w') as TreeJs:
+            for line in reversed(RestJs.readlines()):
+                TreeJs.write(line)
+    with open('TreeJs.json', 'r') as TREE:
+        with open('app/static/script/Generator.js', 'w') as Conf:
+            pure = TREE.readlines()
 
-    # Pure String Reverse Order
-    TreeJs = open('TreeJs.json', 'w')
-    for line in reversed(RestJs.readlines()):
-        TreeJs.write(line)
-    # TreeJs.write(LoadedJson)
-    TreeJs.close()
-    RestJs.close()
+            global DicList
+            DicList = []
+            for part in pure:
+                JsPart = part[:-2]
+                DicList.append(json.loads(JsPart))
 
+            # Generate Tree Strcture
+            Gn = TreeStrcture(DicList)
 
-    TREE = open('TreeJs.json', 'r')
-    Conf = open('app/static/script/Generator.js', 'w')
-
-    pure = TREE.readlines()
-    
-    global DicList
-    DicList = []
-    for part in pure:
-        JsPart = part[:-2]
-        DicList.append(json.loads(JsPart))
-
-    # Generate Tree Strcture
-    Gn = TreeStrcture(DicList)
-
-    Conf.write(Gn)    
-    Conf.close()
-
-    TREE.close()
+            Conf.write(Gn)
 
 
 
@@ -53,17 +42,14 @@ def NodeGenerator(TreeFormat, node):
 
 
     def TxtGn(node):
-        string = ''
-        string += 'text: { name: "'
+        string = '' + 'text: { name: "'
         string += str(node.get('nodeData'))
         string += '" } '
         string += ', '
         return string
 
     def ChildGn(node):
-        # if node.get('lchild') or node.get('rchild'):
-        string = ''
-        string += 'collapsed: true,'
+        string = '' + 'collapsed: true,'
         string += 'children: ['
 
         if node.get('lchild') and node.get('rchild'):
@@ -72,42 +58,35 @@ def NodeGenerator(TreeFormat, node):
 
             Left = NodeFinder(node.get('lchild'))
             Right = NodeFinder(node.get('rchild'))
-            
+
 
             # ************
             string += TxtGn(Left)
 
-            
-            if Left.get('lchild'):
-                # string += ChildGn(Left)
-                string += ChildGn(Left) + '},{'
-            else :
-                string += '},{'
 
-
+            string += ChildGn(Left) + '},{' if Left.get('lchild') else '},{'
             string += TxtGn(Right)
             if Right.get('rchild'):
                 string += ChildGn(Right)
-            
+
 
             string += '}'
-                
-        else:
-            if node.get('lchild'):
-                string += '{'
-                nd = NodeFinder(node.get('lchild'))
-                # *********
-                # string += '},{'
-                string += TxtGn(nd)
-                string += '},'
-            elif node.get('rchild'):
-                string += '{'
-                nd = NodeFinder(node.get('rchild'))
-                string += TxtGn(nd)
-                # *********
-                # string += '},{'
-                string += '},'
-   
+
+        elif node.get('lchild'):
+            string += '{'
+            nd = NodeFinder(node.get('lchild'))
+            # *********
+            # string += '},{'
+            string += TxtGn(nd)
+            string += '},'
+        elif node.get('rchild'):
+            string += '{'
+            nd = NodeFinder(node.get('rchild'))
+            string += TxtGn(nd)
+            # *********
+            # string += '},{'
+            string += '},'
+
 
 
         string += ']'
@@ -132,8 +111,7 @@ def SortedNodeGenerator(TreeFormat, node):
 
 
     def TxtGn(node):
-        string = ''
-        string += 'text: { name: "'
+        string = '' + 'text: { name: "'
         # Sort Part :D
         node.get('nodeData').sort()
         string += str(node.get('nodeData'))
@@ -160,42 +138,35 @@ def SortedNodeGenerator(TreeFormat, node):
 
             Left = NodeFinder(node.get('lchild'))
             Right = NodeFinder(node.get('rchild'))
-            
+
 
             # ************
             string += TxtGn(Left)
 
-            
-            if Left.get('lchild'):
-                # string += ChildGn(Left)
-                string += ChildGn(Left) + '},{'
-            else :
-                string += '},{'
 
-
+            string += ChildGn(Left) + '},{' if Left.get('lchild') else '},{'
             string += TxtGn(Right)
             if Right.get('rchild'):
                 string += ChildGn(Right)
-            
+
 
             string += '}'
-                
-        else:
-            if node.get('lchild'):
-                string += '{'
-                nd = NodeFinder(node.get('lchild'))
-                # *********
-                # string += '},{'
-                string += TxtGn(nd)
-                string += '},'
-            elif node.get('rchild'):
-                string += '{'
-                nd = NodeFinder(node.get('rchild'))
-                string += TxtGn(nd)
-                # *********
-                # string += '},{'
-                string += '},'
-   
+
+        elif node.get('lchild'):
+            string += '{'
+            nd = NodeFinder(node.get('lchild'))
+            # *********
+            # string += '},{'
+            string += TxtGn(nd)
+            string += '},'
+        elif node.get('rchild'):
+            string += '{'
+            nd = NodeFinder(node.get('rchild'))
+            string += TxtGn(nd)
+            # *********
+            # string += '},{'
+            string += '},'
+
 
 
         string += ']'
@@ -338,7 +309,5 @@ def TreeStrcture(DicList):
     });
     '''
 
-    FullFormat = TreeNorthConfig + TreeSouthConfig + TreeObj
-
     # print('Done Create Tree Config', DicList[0].get('nodeData'))
-    return (FullFormat)
+    return TreeNorthConfig + TreeSouthConfig + TreeObj

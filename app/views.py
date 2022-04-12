@@ -52,9 +52,7 @@ class TreeDetail(View):
     def get(self, request, *args, **kwargs):
         Target = get_object_or_404(Tree, id=kwargs.get('id'))
         Target = str(Target)[1:-1].split(',')
-        pureData = []
-        for num in Target:
-            pureData.append(int(num))
+        pureData = [int(num) for num in Target]
         sortedData = pureData
         sortedData.sort()
 
@@ -96,10 +94,7 @@ class IndexView(View):
         if form.is_valid():
             Input = form.cleaned_data['root']
             Input = Input.split(',')
-            Root = []
-            for num in Input:
-                Root.append(int(num))
-
+            Root = [int(num) for num in Input]
             tree = Tree.objects.create(
                 root = Root,
             )
